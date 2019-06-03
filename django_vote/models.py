@@ -65,16 +65,3 @@ class Vote(CommonVote):
                 vote_obj.downvote_count=(F("downvote_count") + 1)
             vote_obj.save()
             super().save(*args, **kwargs)
-
-
-
-
-
-    @property
-    def upvote_count(self):
-        return self.get_model().filter(status=True).count()
-
-    @property
-    def downvote_count(self):
-        return self.get_model().filter(status=False).count()
-
