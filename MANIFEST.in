@@ -1,0 +1,4 @@
+include README.md
+recursive-include django_vote_system *
+recursive-include django_vote_system/templatetags *
+
