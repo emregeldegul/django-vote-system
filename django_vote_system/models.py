@@ -45,7 +45,6 @@ class Vote(CommonVote):
             raise ValidationError("This obj is already saved")
         elif obj_filter.exists() and self.status != obj_filter[0].status:
             obj_filter.update(status=self.status)
-            print(self.status)
             if self.status:
                 "upvote"
                 vote_obj.downvote_count = (F("downvote_count") - 1)
