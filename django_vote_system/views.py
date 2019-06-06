@@ -17,7 +17,11 @@ from rest_framework import serializers
 from .models import Vote
 
 # tags
-from .templatetags.vote import is_vote, upvote_count, downvote_count
+from .templatetags.vote import (
+    is_vote, 
+    upvote_count, 
+    downvote_count
+)
 
 def get_content_type(app_label, model):
     return ContentType.objects.get(
@@ -26,7 +30,10 @@ def get_content_type(app_label, model):
     )
 
 def get_model(app_label, model):
-    content_type_obj = ContentType.objects.get(app_label=app_label, model=model)
+    content_type_obj = ContentType.objects.get(
+        app_label=app_label, 
+        model=model
+    )
     return content_type_obj.model_class()
 
 
@@ -82,7 +89,10 @@ class GetVotes(APIView):
 
     def get(self, request, app_label, model, id):
         queryset = Vote.objects.filter(
-            content_type=get_content_type(app_label, model), 
+            content_type=get_content_type(
+                app_label, 
+                model
+            ), 
             object_id=id,
         )
         serializer = self.serializer_class(queryset, many=True)
@@ -93,7 +103,10 @@ class IsVote(View):
 
     def get(self, request, username, app_label, model, id):
         user = User.objects.get(username=username)
-        model = get_model(app_label=app_label, model=model)
+        model = get_model(
+            app_label=app_label, 
+            model=model
+        )
         return HttpResponse(
             JsonResponse(
                 {
