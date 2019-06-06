@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="django_vote_system",
-    version='0.0.1',
+    version='0.0.2',
     description='A django application to vote any model',
     author='hakancelik96',
     author_email='hakancelik96@outlook.com',

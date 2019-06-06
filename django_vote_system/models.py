@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db.models import F
+from django.utils.translation import gettext as _
 
 AUTH_USER_MODEL = getattr(settings, "AUTH_USER_MODEL", User)
 
@@ -36,7 +37,8 @@ class Vote(CommonVote):
         AUTH_USER_MODEL, 
         on_delete=models.CASCADE
     )
-    status = models.BooleanField(default=True) # True = upvote, False = downvote
+    status = models.BooleanField(default=True)
+    # True = upvote, False = downvote
 
     def __str__(self):
         return f"<{self.user} | {self.object_id}. {self.content_type.app_label} \
@@ -56,7 +58,7 @@ class Vote(CommonVote):
             object_id=self.object_id
         )
         if obj_filter.filter(status=self.status).exists():
-            raise ValidationError("This obj is already saved")
+            raise ValidationError(_("This obj is already saved"))
         elif obj_filter.exists() and self.status != obj_filter[0].status:
             obj_filter.update(status=self.status)
             if self.status:
