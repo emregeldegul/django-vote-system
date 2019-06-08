@@ -16,10 +16,7 @@ def get_content_type(model):
     return content_type
 
 def common_count(model, id):
-    return VoteCount.objects.get(
-        content_type=get_content_type(model), 
-        object_id=id
-    )
+    return VoteCount.objects.get(content_type=get_content_type(model), object_id=id)
 
 @register.filter
 def upvote_count(model, id):
@@ -31,11 +28,9 @@ def downvote_count(model, id):
 
 @register.simple_tag
 def is_vote(user, model, id):
-    obj = Vote.objects.filter(
-        user=user, 
-        content_type=get_content_type(model), 
-        object_id=id
-    )
+    if user.is_anonymous:
+        return None
+    obj = Vote.objects.filter(user=user, content_type=get_content_type(model), object_id=id)
     if obj.filter(status=True).exists():
         return True
     elif obj.filter(status=False).exists():

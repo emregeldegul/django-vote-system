@@ -2,7 +2,7 @@
 A django application to vote any model
 
 ### Install
-`pip install django-vote-system==0.0.2`
+`pip install django-vote-system`
 
 ### Configuration
 
