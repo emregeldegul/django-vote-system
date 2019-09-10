@@ -28,6 +28,8 @@ def downvote_count(model, id):
 
 @register.simple_tag
 def is_vote(user, model, id):
+    if user.is_anonymous:
+        return None
     obj = Vote.objects.filter(user=user, content_type=get_content_type(model), object_id=id)
     if obj.filter(status=True).exists():
         return True
